@@ -52,9 +52,9 @@ public class Demo01FindFirstLeastOccurringLetterTests {
     }
     private int findFirstPositionLeastOccurringLetter(String sentence) {
         char[] capitalsAandB = {'A','B'};
-        int [] captialCounter = new int[capitalsAandB.length];
 
-        countCapitals(sentence, capitalsAandB, captialCounter);
+
+        int [] captialCounter = countCapitals(sentence, capitalsAandB);
 
         int indexMaxValue = findIndexMostOccuringCapital(captialCounter);
 
@@ -64,7 +64,8 @@ public class Demo01FindFirstLeastOccurringLetterTests {
 
     //Kan de signature van deze methode mooier?
     //Is die niet mooi dan?
-    private static void countCapitals(String sentence, char[] capitalsAandB, int[] captialCounter) {
+    private  int [] countCapitals(String sentence, char[] capitalsAandB) {
+        int [] captialCounter = new int[capitalsAandB.length];
         for(int index = 0; index < capitalsAandB.length; index++){
             for(char charFromString : sentence.toCharArray()){
                 if(capitalsAandB[index] == charFromString){
@@ -72,6 +73,7 @@ public class Demo01FindFirstLeastOccurringLetterTests {
                 }
             }
         }
+        return captialCounter;
     }
 
     private int findFirstPosition(char character,String sentence) {
