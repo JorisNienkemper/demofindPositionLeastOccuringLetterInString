@@ -1,11 +1,9 @@
 package nl.infosupport.projectxi.demopreparation;
 
-import nl.infosupport.projectxi.demopreparation.utils.Demo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 
 @DisplayName("""
     Vind de eerste positie van de  letter die het minst voorkomt in een gegeven String
@@ -50,13 +48,27 @@ public class Demo01FindFirstLeastOccurringLetterTests {
         //Assert
         assertThat(firstPosition).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("""
+    Vind de 1ste positie van de minst voorkomende letter in de willekeurige String ABCZABCDD
+    """)
+    void vindDePositieVanDeZ(){
+        //Arrange
+        String sentence = "ABCZABCDD";
+        //Act
+        int firstPositionLeastOccurringLetter = findFirstPositionLeastOccurringLetter(sentence);
+        //Assert
+        assertThat(firstPositionLeastOccurringLetter).isEqualTo(3);
+        assertThat(sentence.charAt(firstPositionLeastOccurringLetter)).isEqualTo('Z');
+    }
     private int findFirstPositionLeastOccurringLetter(String sentence) {
-        char[] capitalsAandB = {'A','B'};
+        char[] capitalsAandB = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
 
         int [] captialCounter = countCapitals(sentence, capitalsAandB);
 
-        int indexMaxValue = findIndexMostOccuringCapital(captialCounter);
+        int indexMaxValue = findLeastOccuringLetter(captialCounter);
 
 
         return findFirstPosition(capitalsAandB[indexMaxValue],sentence);
@@ -86,15 +98,18 @@ public class Demo01FindFirstLeastOccurringLetterTests {
         throw new NotYetImplementedException();
     }
 
-    private int findIndexMostOccuringCapital(int[] captialCounter) {
-        int maxValue = captialCounter[0];
-        int indexMaxValue= 0;
-        for(int index = 1; index< captialCounter.length;index++ ){
-            if(captialCounter[index]> maxValue){
-                maxValue = captialCounter[index];
-                indexMaxValue = index;
+    private int findLeastOccuringLetter(int[] captialCounter) {
+        int minValue = Integer.MAX_VALUE;
+        int indexMinValue=0;
+        for(int index = 0; index< captialCounter.length;index++ ){
+            if(captialCounter[index] == 0){
+                continue;
+            }
+            if(captialCounter[index]< minValue){
+                minValue = captialCounter[index];
+                indexMinValue = index;
             }
         }
-        return indexMaxValue;
+        return indexMinValue;
     }
 }
