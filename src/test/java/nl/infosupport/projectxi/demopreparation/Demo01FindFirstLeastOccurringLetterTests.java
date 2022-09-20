@@ -25,6 +25,12 @@ public class Demo01FindFirstLeastOccurringLetterTests {
     }
 
     private int findFirstPositionLeastOccurringLetter(String sentence) {
-        throw new NotYetImplementedException("Not implemented yet. You probably found a new requirement. Chech out with the PO!");
+        char capitalA = 'A';
+        for(char charFromString : sentence.toCharArray()){
+            if(capitalA != charFromString){
+                throw new NotYetImplementedException("Not implemented yet. You probably found a new requirement. Chech out with the PO!");
+            }
+        }
+        return 0;
     }
 }
