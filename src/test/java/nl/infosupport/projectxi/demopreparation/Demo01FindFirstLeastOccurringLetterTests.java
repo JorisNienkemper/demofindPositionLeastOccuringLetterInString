@@ -62,6 +62,8 @@ public class Demo01FindFirstLeastOccurringLetterTests {
         return findFirstPosition(capitalsAandB[indexMaxValue],sentence);
     }
 
+    //Kan de signature van deze methode mooier?
+    //Is die niet mooi dan?
     private static void countCapitals(String sentence, char[] capitalsAandB, int[] captialCounter) {
         for(int index = 0; index < capitalsAandB.length; index++){
             for(char charFromString : sentence.toCharArray()){
