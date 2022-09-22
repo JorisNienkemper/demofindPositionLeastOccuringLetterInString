@@ -30,9 +30,20 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
         //3 Assert
         assertThat(postionLeastOccuringLetter).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName(" AABBBCZCCDDE")
+    void vindDeIndexVanZ(){
+        //1 Arrange
+        String sentence = "AABBBCZCCDDEE";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(6);
+    }
     private int findFirstPositionLeastOccuringLetter(String sentence) {
 
-        char[] capitals ={'A','B'};
+        char[] capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
         int [] counterCapitals = countCapitals(capitals,sentence);
 
@@ -84,4 +95,47 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
         }
         return indexLowestValue;
     }
+
+    private int moetJeNietWillenDoen(String sentence) {
+
+        char[] capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+        int [] counterCapitals1 = new int[capitals.length];
+        for(int indexCapitals = 0; indexCapitals< capitals.length; indexCapitals+=1) {
+            for (char characterInSentence : sentence.toCharArray()) {
+                if (characterInSentence == capitals[indexCapitals]) {
+                    counterCapitals1[indexCapitals] += 1;
+                }
+            }
+        }
+        int [] counterCapitals = counterCapitals1;
+
+        int lowest = counterCapitals[0];
+        int indexLowestValue = 0;
+        for(int indexCounter = 0; indexCounter< counterCapitals.length; indexCounter+=1){
+            if(counterCapitals[indexCounter] == 0){
+                continue;
+            }
+            if(lowest > counterCapitals[indexCounter]){
+                lowest = counterCapitals[indexCounter];
+                indexLowestValue = indexCounter;
+            }
+        }
+        int indexLowestFrequenceLetterCount = indexLowestValue;
+
+        char lowestFrequenceLetter = capitals[indexLowestFrequenceLetterCount];
+
+        char [] sentenceAsCharacters = sentence.toCharArray();
+        for(int indexCharInSentence =0;indexCharInSentence< sentenceAsCharacters.length;indexCharInSentence += 1){
+            if(lowestFrequenceLetter == sentenceAsCharacters[indexCharInSentence]){
+                return indexCharInSentence;
+            }
+        }
+
+        throw new NotYetImplementedException("Niet doen");
+
+//        return findFirstOccurrenceLetter(lowestFrequenceLetter, sentence);
+
+    }
+
 }
