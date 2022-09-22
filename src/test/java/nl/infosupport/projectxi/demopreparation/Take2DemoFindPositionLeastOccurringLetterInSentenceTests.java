@@ -1,5 +1,6 @@
 package nl.infosupport.projectxi.demopreparation;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,97 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
         //3 Assert
         assertThat(postionLeastOccuringLetter).isEqualTo(6);
     }
+
+    @Test
+    @DisplayName("Wat gebeurt er eigenlijk met karakters die niet opgenomen zijn in capitals, hoe reageert de methode daarop? " +
+            "Bijvoorbeeld de a in aAABBBCZZCCDDEE ")
+    @Disabled("Test moet nog gefixed worden. Test wordt opgenomen om deze situatie niet te vergeten.")
+    void vindDeIndexVanLowercaseA(){
+        //1 Arrange
+        String sentence = "aAABBBCZCCDDEE";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("Hoe willen we omgaan met de situatie waarbij 2 letters even vaak voorkomen? " +
+            "Bijvoorbeeld in AABBBCZZCCDDEE de Z en de E")
+    @Disabled("By design: Wat willen dat er uitkomt, waar zal dit stuklopen, waarom? Oplossing")
+    void hoeGaatAlgorithmeOmMet2LettersDieAllebeiEvenVaakVoorkomen(){
+        //1 Arrange
+        String sentence = "ZBBZ";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("Hoe willen we omgaan met de situatie wanneer de sentence leeg is. \"\"")
+    @Disabled("By design: Wat willen dat er uitkomt, waar zal dit stuklopen, waarom? Oplossing")
+    void hoeOmgaanMetLegeArray(){
+        //1 Arrange
+        String sentence = "";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("Hoe willen we omgaan een sentence die uit 1 letter bestaat bijv. A")
+    @Disabled("By design: Wat willen dat er uitkomt, waar zal dit stuklopen, waarom? Oplossing")
+    void hoeOmgaanMetEenSentenceVan1Letter(){
+        //1 Arrange
+        String sentence = "A";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("Mis je nog tests, welke test zou je willen toevoegen?")
+    void ontbekendeTests(){
+        //1 Arrange
+        String sentence = "onbekende test";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(0);
+    }
+
+
+    @Test
+    @DisplayName("Zijn er plekken waar het efficienter kan? Zijn er plekken waar we veel informatie weggooien?" +
+            " Waar, kan dat efficienter? Voordelen Wanneer? Nadelen wanneer?" +
+            " Implementeer deze efficientere oplossing en noem de methode turboNaamAanpassing()" +
+            " Zou je de efficiencyverschil kunnen meten? Hoe?")
+    void kanHetEfficienter(){
+        //1 Arrange
+        String sentence = "AABBCCCDDDDEEEEEFFFFFFFZ";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(23);
+    }
+
+    @Test
+    @DisplayName("Idealiter zou je willen dat bij elke nieuwe test dat de NotYetImplementedException zou afgaan." +
+            " Immers een nieuwe test, is nieuwe functionaliteit en die zou er nog niet in mogen zitten." +
+            " Probeer vanaf de 2de test deze exception weer in te bouwen." +
+            " Git ceckout commit en begin nieuwe branch, bugFix en probeer dit in te bouwen.")
+    @Disabled("To Be implemented")
+    void notYetImplementedDisappeared(){
+        //1 Arrange
+        String sentence = "Ik wil de NotYetImplementedException zien!";
+        //2 Act
+        int postionLeastOccuringLetter  = findFirstPositionLeastOccuringLetter(sentence);
+        //3 Assert
+        assertThat(postionLeastOccuringLetter).isEqualTo(0);
+    }
     private int findFirstPositionLeastOccuringLetter(String sentence) {
 
         char[] capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
@@ -80,6 +172,7 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
         }
         throw new NotYetImplementedException("Dat kan niet");
     }
+
 
     private int indexLowestFrequenceLetterCount(int[] counterCapitalAandB) {
         int lowest = counterCapitalAandB[0];
