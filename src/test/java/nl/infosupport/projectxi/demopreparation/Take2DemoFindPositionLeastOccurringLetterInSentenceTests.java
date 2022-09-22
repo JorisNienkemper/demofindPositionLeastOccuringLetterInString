@@ -13,7 +13,7 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
         //1 Arrange
         String aas = "AAAA";
         //2 Act
-        int postieFirstA = findFirstPositionOfTheLeastOccuringAorBees(aas);
+        int postieFirstA = findFirstPositionLeastOccuringLetter(aas);
 
         //3 Assert
         assertThat(postieFirstA).isEqualTo(0);
@@ -23,34 +23,44 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
     @DisplayName("de verwachtepositie = 1 van de eerste B in de sentence = ABAABA alleen uit A's en B's bestaat")
     void verwachtPositie1BijStringVanAlleenAasEnBees(){
         //1 Arrange
-        String aas = "ABAABA";
+        String sentence = "ABAABA";
         //2 Act
-        int postieFirstB = findFirstPositionOfTheLeastOccuringAorBees(aas);
+        int postionLeastOccuringLetter = findFirstPositionLeastOccuringLetter(sentence);
 
         //3 Assert
-        assertThat(postieFirstB).isEqualTo(1);
+        assertThat(postionLeastOccuringLetter).isEqualTo(1);
     }
-    private int findFirstPositionOfTheLeastOccuringAorBees(String sentence) {
-        char[] capitalsAorB ={'A','B'};
-        int [] counterCapitalAandB = new int[capitalsAorB.length];
-        for(int indexCapitalsAorB = 0; indexCapitalsAorB<capitalsAorB.length;indexCapitalsAorB+=1) {
+    private int findFirstPositionLeastOccuringLetter(String sentence) {
+
+        char[] capitals ={'A','B'};
+
+        int [] counterCapitals = countCapitals(capitals,sentence);
+
+        int indexLowestFrequenceLetterCount = indexLowestFrequenceLetterCount(counterCapitals);
+
+        char lowestFrequenceLetter = capitals[indexLowestFrequenceLetterCount];
+
+        int indexFirstOccurrenceLetterInSentence = findFirstOccurrenceLetter(lowestFrequenceLetter, sentence);
+
+        return indexFirstOccurrenceLetterInSentence;
+
+//        return findFirstOccurrenceLetter(lowestFrequenceLetter, sentence);
+
+    }
+
+    private int[] countCapitals(char[] capitals, String sentence) {
+        int [] counterCapitals = new int[capitals.length];
+        for(int indexCapitals = 0; indexCapitals<capitals.length;indexCapitals+=1) {
             for (char characterInSentence : sentence.toCharArray()) {
-                if (characterInSentence == capitalsAorB[indexCapitalsAorB]) {
-                    counterCapitalAandB[indexCapitalsAorB] += 1;
+                if (characterInSentence == capitals[indexCapitals]) {
+                    counterCapitals[indexCapitals] += 1;
                 }
             }
         }
-
-        int indexLowestFrequenceLetterCount = indexLowestFrequenceLetterCount(counterCapitalAandB);
-
-        char lowestFrequenceLetter = capitalsAorB[indexLowestFrequenceLetterCount];
-
-        int indexInSentence = findFirstB(lowestFrequenceLetter, sentence);
-
-        return indexInSentence;
+        return counterCapitals;
     }
 
-    private int findFirstB(char lowestFrequenceLetter, String sentence) {
+    private int findFirstOccurrenceLetter(char lowestFrequenceLetter, String sentence) {
         char [] sentenceAsCharacters = sentence.toCharArray();
         for(int indexCharInSentence =0;indexCharInSentence< sentenceAsCharacters.length;indexCharInSentence += 1){
             if(lowestFrequenceLetter == sentenceAsCharacters[indexCharInSentence]){
@@ -64,6 +74,9 @@ public class Take2DemoFindPositionLeastOccurringLetterInSentenceTests {
         int lowest = counterCapitalAandB[0];
         int indexLowestValue = 0;
         for(int indexCounter = 0;indexCounter< counterCapitalAandB.length;indexCounter+=1){
+            if(counterCapitalAandB[indexCounter] == 0){
+                continue;
+            }
             if(lowest > counterCapitalAandB[indexCounter]){
                 lowest = counterCapitalAandB[indexCounter];
                 indexLowestValue = indexCounter;
